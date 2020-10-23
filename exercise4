@@ -1,0 +1,17 @@
+def divideLinkedList(linkedList: DoubleLinkedList):
+    evens = DoubleLinkedList()
+    odds = DoubleLinkedList()
+    node = linkedList.getFirst()
+    while node is not None:
+        evens.addLast(node.data)
+        linkedList.remove(node.data)
+        try:
+            node = node.next.next
+        except AttributeError:
+            break
+    node = linkedList.getFirst()
+    while node is not None:
+        odds.addLast(node.data)
+        linkedList.remove(node.data)
+        node = node.next
+    return evens, 

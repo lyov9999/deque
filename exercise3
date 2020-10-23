@@ -1,0 +1,43 @@
+class Deque:
+    def __init__(self):
+        self.items = DoubleLinkedList()
+        self.capacity = 8
+
+    def addFirst(self, data):
+        if self.isFull():
+            print("Excessed!")
+            return
+        self.items.addFirst(data)
+
+    def addLast(self, data):
+        if self.isFull():
+            print("Excessed!")
+            return
+        self.items.addLast(data)
+
+    def getSize(self):
+        return self.items.getSize()
+
+    def getFirst(self):
+        return self.items.getFirst()
+
+    def getLast(self):
+        return self.items.getLast()
+
+    def removeFirst(self):
+        self.items.removeFirst()
+
+    def removeLast(self):
+        self.items.removeLast()
+
+    def isFull(self):
+        return self.items.getSize() == 8
+
+    def __repr__(self):
+        node = self.items.getFirst()
+        deque = []
+        while node is not None:
+            deque.append(node.data)
+            node = node.next
+        return "Printing-" + str(deque) + "\n\n"
+

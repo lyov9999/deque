@@ -1,0 +1,144 @@
+class Node:
+    def __init__(self, data, nextNode, previous=None):
+        self.data = data
+        self.next: Node = nextNode
+        self.previous = previous
+
+class DoubleLinkedList:
+    def __init__(self, base=None):
+        self.first = base
+        self.last = base
+        self.size = 0
+        if self.first is not None:
+            self.size = self.size + 1
+
+    def insertBefore(self, data, dataCh):
+        if self.first and self.last:
+            node = self.first
+            while node is not None:
+                if node.data == dataCh:
+                    newNode = Node(data, node, node.previous)
+                    if node.previous is None:
+                        self.first.previous = newNode
+                        self.first = newNode
+                    else:
+                        node.previous.next = newNode
+                        node.previous = newNode
+                    self.size += 1
+                    return
+                else:
+                    node = node.next
+            print("NONE!")
+            return
+        else:
+            print("EMPTY!")
+
+    def insertAfter(self, data, dataCh):
+        if self.first and self.last:
+            node = self.first
+            while node is not None:
+                if node.data == dataCh:
+                    newNode = Node(data, node.next, node)
+                    if node.next is None:
+                        node.next = newNode
+                    else:
+                        node.next.previous = newNode
+                        node.next = newNode
+                    self.size += 1
+                    return
+                else:
+                    node = node.next
+            print("NONE!")
+            return
+        else:
+            print("EMPTY!")
+
+    def addFirst(self, data):
+        if self.first and self.last:
+            newNode = Node(data, self.first, None)
+            self.first.previous = newNode
+            if self.first == self.last:
+                self.last.previous = newNode
+            self.first = newNode
+            self.size += 1
+        else:
+            newNode = Node(data, None, None)
+            self.first = newNode
+            self.last = newNode
+        return newNode
+
+    def removeFirst(self):
+        if self.first and self.last:
+            if self.first == self.last:
+                self.first = None
+                self.last = None
+                self.size -= 1
+            else:
+                self.first.next.previous = None
+                temp = self.first
+                self.first = self.first.next
+                temp.next = None
+                self.size -= 1
+        else:
+            print("EMPTY!")
+
+    def addLast(self, data):
+        if self.first and self.last:
+            newNode = Node(data, None, self.last)
+            self.last.next = newNode
+            if self.first == self.last:
+                self.first.next = newNode
+            self.last = newNode
+            self.size += 1
+        else:
+            newNode = Node(data, None, None)
+            self.first = newNode
+            self.last = newNode
+        return newNode
+
+    def removeLast(self):
+        if self.first and self.last:
+            if self.first == self.last:
+                self.first = None
+                self.last = None
+                self.size -= 1
+            else:
+                self.last.previous.next = None
+                temporary = self.last
+                self.last = self.last.previous
+                temporary.previous = None
+                self.size -= 1
+        else:
+            print("EMPTY!")
+
+    def getFirst(self):
+        return self.first
+
+    def getLast(self):
+        return self.last
+
+    def remove(self, data):
+        node = self.first
+        while node is not None:
+            if node.data == data:
+                if node.previous is not None:
+                    node.previous.next = node.next
+                else:
+                    self.first = node.next
+                self.size -= 1
+                return
+            else:
+                node = node.next
+
+    def getSize(self):
+        return self.size
+
+    def __repr__(self):
+        print("Elements-", end="")
+        curr = self.get_first()
+        print("None-", end="")
+        while curr is not None:
+            print(f" ( {curr.data} ) ", end="")
+            curr = curr.next
+        print("None")
+        return ""
